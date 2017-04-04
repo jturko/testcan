@@ -1,0 +1,10 @@
+
+/gps/energy {incidentEnergy} MeV
+
+/testcan/phys/setCuts 0.001 mm
+/testcan/det/setDetectorAlum 0
+/testcan/det/setDetectorThickness 1 cm
+/testcan/det/setDetectorMaterial Deuterium
+
+/run/beamOn 50000
+

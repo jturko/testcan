@@ -1,0 +1,12 @@
+
+/testcan/phys/SelectPhysics QGSP_BERT_HP
+/testcan/phys/setCuts 0.001 mm
+
+#/testcan/det/setDetectorThickness 1 cm
+#/testcan/det/setDetectorAlum 0
+
+/run/initialize
+
+/gps/particle neutron
+
+/control/loop cs.mac incidentEnergy 0.5 10.0 0.1

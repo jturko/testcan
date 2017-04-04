@@ -1,0 +1,16 @@
+
+/testcan/phys/SelectPhysics QGSP_BERT_HP
+/testcan/phys/setCuts 1 nm
+
+#/testcan/det/setDetectorThickness 1 cm
+#/testcan/det/setDetectorAlum 0
+
+/run/initialize
+
+/testcan/phys/setCuts 1 nm
+/testcan/det/setDetectorMaterial Carbon
+
+/gps/particle neutron
+/gps/energy 5.35 MeV
+
+/run/beamOn 1000000
