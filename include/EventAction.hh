@@ -55,6 +55,8 @@ void OneLessScintPhoton(){
    numScintPhotons = numScintPhotons - .8;
 }
  
+    void SetPrimaryEnergy(G4double energy) { primaryEnergy = energy; }
+    G4double GetPrimaryEnergy() { return primaryEnergy; }
     
 private:
    static G4int nEvents;
@@ -66,6 +68,8 @@ private:
   G4double totalTime;
   G4double numScintPhotons;
   G4double photonTime[MAX_PHOTONS];
+
+    G4double primaryEnergy;
 
   HistoManager * histoMan;
     

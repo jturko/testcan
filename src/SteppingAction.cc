@@ -56,9 +56,10 @@ void SteppingAction::UserSteppingAction(const G4Step * step)
   G4double runAngle = evtAction->getcmScatAngle();
   //  G4cout << "whats my angle? should be -1...... but it actually is: " << runAngle << G4endl;
 
+    G4double pEnergy = evtAction->GetPrimaryEnergy();
 
-  //if(processName == HadronicElastic && numSecondaries == 1 && runAngle == -1 && step->GetPreStepPoint()->GetKineticEnergy()/MeV == 9)
-  if(processName == HadronicElastic && numSecondaries == 1 && runAngle == -1 )
+  if(processName == HadronicElastic && numSecondaries == 1 && runAngle == -1 && step->GetPreStepPoint()->GetKineticEnergy()/MeV == pEnergy)
+  //if(processName == HadronicElastic && numSecondaries == 1 && runAngle == -1)
     { 
 
       G4ThreeVector PreScatMomentum = step->GetPreStepPoint()->GetMomentum();

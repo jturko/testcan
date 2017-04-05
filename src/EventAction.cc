@@ -23,7 +23,8 @@ totalTime(0.),
 labScatteringAngle(0.),
 cmScatteringAngle(0.),
 histoMan(histo),
-numScintPhotons(0)
+numScintPhotons(0),
+primaryEnergy(-1)
 {}
 
 G4int EventAction::nEvents = 0;
@@ -39,6 +40,8 @@ void EventAction::BeginOfEventAction(const G4Event*evt)
   totalTime = 0.;
    cmScatteringAngle = -1 ;
    numScintPhotons = 0.;
+
+   SetPrimaryEnergy(evt->GetPrimaryVertex()->GetPrimary()->GetKineticEnergy());
 
   G4int evtNb = evt->GetEventID();
   if((evtNb%1000) == 0) {
