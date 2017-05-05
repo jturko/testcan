@@ -58,24 +58,56 @@ void RunAction::EndOfRunAction(const G4Run * run )
 
 	// FOR THE CALCULATION OF THE TOTAL CROSS SECTION
 	// THIS WILL ONLY WORK FOR A 1 cm THICK TARGET WITH SPECIFICALLY DEFINED DENSITY: SEE JAMES WONG MSC THESIS FOR DETAILS
-    G4double scat = EventAction::GetnScatteringEvents();
     G4double inc = EventAction::GetnEvents();
+    G4double scat = EventAction::GetnScatteringEvents();
+    G4double scat_el = EventAction::GetnElasticEvents();
+    G4double scat_inel = EventAction::GetnInelasticEvents();
     
+    G4cout << "\n\n\n";
+    G4cout << inc << "\t" << scat << "\t" << scat_el << "\t" << scat_inel << G4endl;
+    G4cout << "\n\n\n";
+
     G4double avo = 6.022e+23;
-    G4double ratio;
-    ratio = (scat/inc);
+
+    G4double cs_tot = -log(1-scat/inc)/avo*1e24;
+    G4double cs_tot_err = (1e+24/avo)*(1/(inc-scat))*sqrt(scat);
+
+    G4double cs_el = -log(1-scat_el/inc)/avo*1e24;
+    G4double cs_el_err = (1e+24/avo)*(1/(inc-scat_el))*sqrt(scat_el);
+
+    G4double cs_inel = -log(1-scat_inel/inc)/avo*1e24;
+    G4double cs_inel_err = (1e+24/avo)*(1/(inc-scat_inel))*sqrt(scat_inel);
+    
+    //G4double ratio =  scat/inc;
+    //G4double ratioEl =  scatEl/inc;
+    //G4double ratioInel =  scatInel/inc;
   
-    G4double nlog = double (log(1-ratio));
-    G4double crossSect = -nlog/avo;
-    G4double bCross = crossSect*1e+24;
-    G4double errCross = (1e+24/avo)*(1/(inc-scat))*sqrt(scat);
+    //G4double nlog = double (log(1-ratio));
+    //G4double nlogEl = double (log(1-ratioEl));
+    //G4double nlogInel = double (log(1-ratioInel));
+    //G4double crossSect = -nlog/avo;
+    //G4double crossSectEl = -nlogEl/avo;
+    //G4double crossSectInel = -nlogInel/avo;
+    //G4double bCross = crossSect*1e+24;
+    //G4double bCrossEl = crossSectEl*1e+24;
+    //G4double bCrossInel = crossSectInel*1e+24;
+    //G4double errCross = (1e+24/avo)*(1/(inc-scat))*sqrt(scat);
+    //G4double errCrossEl = (1e+24/avo)*(1/(inc-scatEl))*sqrt(scatEl);
+    //G4double errCrossInel = (1e+24/avo)*(1/(inc-scatInel))*sqrt(scatInel);
 
 	//G4cout << "ratio: " << ratio << G4endl;
-	G4cout << "Cross Section: " << bCross << G4endl;
-    
-    SetCrossArray(bCross,j);
+	//G4cout << "Cross Section: " << cs_tot << G4endl;
+    G4cout << "total cs = " << cs_tot << " +/- " << cs_tot_err << G4endl;
+    G4cout << "elastic cs = " << cs_el << " +/- " << cs_el_err << G4endl;
+    G4cout << "inelastic cs = " << cs_inel << " +/- " << cs_inel_err << G4endl;
+
+    SetCrossArray(cs_tot,j);
+    SetElCrossArray(cs_el,j);
+    SetInelCrossArray(cs_inel,j);
     SetHitArray(scat,j);
-    SeterrArray(errCross,j);
+    SetErrArray(cs_tot_err,j);
+    SetElErrArray(cs_el_err,j);
+    SetInelErrArray(cs_inel_err,j);
     j++;
     
     G4double num = 0;

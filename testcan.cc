@@ -178,8 +178,23 @@ int main(int argc,char** argv)
 	//G4cout << "size of cross section vector: " << run_action->GetVectorSize() << G4endl;
 
 	for(int i=0; i<run_action->GetNumberOfRuns(); i++){
-		G4cout << run_action->GetCrossVector(i) << " +/- " << run_action->GeterrVector(i) << " Barns || " << run_action->GetHitVector(i) << " +/- " 
-		       << sqrt(run_action->GetHitVector(i)) << " hits || " << G4BestUnit(run_action->GetEnergyVector(i),"Energy") << G4endl;}
+        G4double energy = run_action->GetEnergyVector(i);
+        
+        G4double cs = run_action->GetCrossVector(i);
+        G4double cs_el = run_action->GetElCrossVector(i);
+        G4double cs_inel = run_action->GetInelCrossVector(i);
+        
+        G4double cs_err = run_action->GetErrVector(i);
+        G4double cs_el_err = run_action->GetElErrVector(i);
+        G4double cs_inel_err = run_action->GetInelErrVector(i);
+    
+        //G4cout << energy << "\t" << cs << "\t" << cs_err << "\t" << cs_el << "\t" << cs_el_err << "\t" << cs_inel << "\t" << cs_inel_err << G4endl;
+        G4cout << energy << "\t" << cs << "\t" << cs_err << "\t" << cs_el << "\t" << cs_el_err << "\t" << cs_inel << "\t" << cs_inel_err << G4endl;
+    }
+	//for(int i=0; i<run_action->GetNumberOfRuns(); i++){
+	//	G4cout << run_action->GetCrossVector(i) << " +/- " << run_action->GetErrVector(i) << " Barns || " << run_action->GetHitVector(i) << " +/- " 
+	//	       << sqrt(run_action->GetHitVector(i)) << " hits || " << G4BestUnit(run_action->GetEnergyVector(i),"Energy") << G4endl;
+    //}
     
   delete runManager;
     

@@ -271,7 +271,7 @@ G4VPhysicalVolume* DetectorConstruction::ConstructTestCan()
     logicTestCan->SetSensitiveDetector(sensTestCan);
     
     G4VPrimitiveScorer * eDeposit = new G4PSEnergyDeposit("Energy Deposit",0);
-    //eDeposit->SetMultiFunctionalDetector(sensTestCan);
+    eDeposit->SetMultiFunctionalDetector(sensTestCan);
     sensTestCan->RegisterPrimitive(eDeposit);
     
     scoringVol = logicTestCan;

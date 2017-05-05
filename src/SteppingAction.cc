@@ -34,17 +34,15 @@ SteppingAction::~SteppingAction()
 
 void SteppingAction::UserSteppingAction(const G4Step * step)
 {
-  if (!logicVol)
+    if (!logicVol)
     {
-      const DetectorConstruction * detectorConstruct =
-	static_cast<const DetectorConstruction*>
-	(G4RunManager::GetRunManager()->GetUserDetectorConstruction());
-      logicVol = detectorConstruct->GetScoringVolume();
+        const DetectorConstruction * detectorConstruct =
+        static_cast<const DetectorConstruction*>
+        (G4RunManager::GetRunManager()->GetUserDetectorConstruction());
+        logicVol = detectorConstruct->GetScoringVolume();
     }
     
-  G4LogicalVolume* volume
-    = step->GetPreStepPoint()->GetTouchableHandle()
-    ->GetVolume()->GetLogicalVolume();
+  G4LogicalVolume* volume = step->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetLogicalVolume();
   if (volume != logicVol) return;
 
   G4String processName = step->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessName();
@@ -56,12 +54,19 @@ void SteppingAction::UserSteppingAction(const G4Step * step)
   G4double runAngle = evtAction->getcmScatAngle();
   //  G4cout << "whats my angle? should be -1...... but it actually is: " << runAngle << G4endl;
 
-    G4double pEnergy = evtAction->GetPrimaryEnergy();
+  G4double pEnergy = evtAction->GetPrimaryEnergy();
+
+
+  //if(processName == HadronicElastic && numSecondaries == 1 && runAngle == -1 && step->GetPreStepPoint()->GetKineticEnergy()/MeV == pEnergy) EventAction::OneMoreElasticEvent();
+  //if(processName != HadronicElastic && numSecondaries == 1 && runAngle == -1 && step->GetPreStepPoint()->GetKineticEnergy()/MeV == pEnergy) EventAction::OneMoreInelasticEvent();
+    
+  if(processName == HadronicElastic && numSecondaries == 1 && step->GetPreStepPoint()->GetKineticEnergy()/MeV == pEnergy) EventAction::OneMoreElasticEvent();
 
   if(processName == HadronicElastic && numSecondaries == 1 && runAngle == -1 && step->GetPreStepPoint()->GetKineticEnergy()/MeV == pEnergy)
   //if(processName == HadronicElastic && numSecondaries == 1 && runAngle == -1)
     { 
-
+      
+    
       G4ThreeVector PreScatMomentum = step->GetPreStepPoint()->GetMomentum();
       // G4cout << "the track of the step is a : " << step->GetTrack()->GetDefinition()->GetParticleName()<< G4endl;
       G4ThreeVector PostScatMomentum = step->GetPostStepPoint()->GetMomentum();

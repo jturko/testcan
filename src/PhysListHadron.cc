@@ -109,7 +109,7 @@ void PhysListHadron::ConstructProcess()
     // Hadron elastic process
     // for all particles except neutrons
     
-    auto aParticleIterator = GetParticleIterator();
+    //auto aParticleIterator = GetParticleIterator();
     aParticleIterator->reset();
     while( (*aParticleIterator)() ) {
         G4ParticleDefinition* particle = aParticleIterator->value();

@@ -28,8 +28,10 @@ primaryEnergy(-1)
 {}
 
 G4int EventAction::nEvents = 0;
-G4int EventAction::nScatteringEvents = 0;
 G4int EventAction::nEdepEvents = 0;
+G4int EventAction::nScatteringEvents = 0;
+G4int EventAction::nElasticEvents = 0;
+G4int EventAction::nInelasticEvents = 0;
 
 EventAction::~EventAction()
 {}

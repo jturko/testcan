@@ -24,13 +24,20 @@ public:
     virtual void EndOfEventAction(const G4Event* );
     
     static G4int GetnEvents(){return nEvents;}
-    static G4int GetnScatteringEvents(){return nScatteringEvents;}
+    
     static G4int GetnEdepEvents(){return nEdepEvents;}
-  static void OneMoreScatteringEvent(){nScatteringEvents += 1;}
     
-  static void ResetEvents(){nEvents = 0; nScatteringEvents = 0; nEdepEvents = 0;}
+    static G4int GetnScatteringEvents(){return nScatteringEvents;}
+    static void OneMoreScatteringEvent(){nScatteringEvents++;}
     
+    static G4int GetnElasticEvents() { return nElasticEvents; }
+    static void OneMoreElasticEvent() { nElasticEvents++; }
     
+    static G4int GetnInelasticEvents() { return nInelasticEvents; }
+    static void OneMoreInelasticEvent() { nInelasticEvents++; }
+    
+    static void ResetEvents(){nEvents = 0; nScatteringEvents = 0; nEdepEvents = 0; nElasticEvents = 0; nInelasticEvents = 0;}
+ 
   void AddEdep(G4double ener) { Edeposit += ener; }
   void AddStep(G4double stepl) {
     if(!stepLength) stepLength += stepl; }
@@ -62,7 +69,9 @@ private:
    static G4int nEvents;
    static G4int nScatteringEvents;
    static G4int nEdepEvents;
-    
+   static G4int nElasticEvents;    
+   static G4int nInelasticEvents;    
+
   G4double Edeposit;
   G4double stepLength;
   G4double totalTime;
